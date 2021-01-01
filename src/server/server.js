@@ -6,20 +6,9 @@ import serve from 'koa-static';
 import helmet from 'koa-helmet';
 import Router from 'koa-router';
 import { renderToString } from 'react-dom/server';
-
+const { v4: uuid } = require('uuid');
 const assets = require(process.env.RAZZLE_ASSETS_MANIFEST);
-
-// Initialize `koa-router` and setup a route listening on `GET /*`
-// Logic has been splitted into two chained middleware functions
-// @see https://github.com/alexmingoia/koa-router#multiple-middleware
 const router = new Router();
-
-router.use(async (ctx, next) => {
-  ctx.set('Access-Control-Allow-Origin', '*');
-  ctx.set('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
-  ctx.set('Access-Control-Allow-Methods', 'POST, GET, PUT, DELETE, OPTIONS');
-  await next();
-});
 
 router.get(
   '/(.*)',
@@ -34,20 +23,25 @@ router.get(
     return context.url ? ctx.redirect(context.url) : next();
   },
   ctx => {
-    const nonce = 'brerfwf3f2';
+    const nonce = uuid();
     ctx.status = 200;
+    ctx.set('Content-Security-Policy', `default-src * 'unsafe-inline' 'unsafe-eval'; script-src * 'unsafe-inline' 'unsafe-eval'; connect-src * 'unsafe-inline'; img-src * data: blob: 'unsafe-inline'; frame-src *; style-src * 'unsafe-inline';`);
     ctx.body = `
     <!doctype html>
       <html lang="">
       <head>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta charset="utf-8" />
-        <title></title>
+        <title>Karl Norling</title>
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="css/normalize.css" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400&display=swap" rel="stylesheet">
+        <link href="css/main.css" rel="stylesheet">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         ${  
           process.env.NODE_ENV === 'production'
-            ? `<script src="${assets.client.js}" defer crossorigin nonce=${nonce}></script>`
-            : `<script src="${assets.client.js}" defer crossorigin nonce=${nonce}></script>`
+            ? `<script src="${assets.client.js}" defer crossorigin></script>`
+            : `<script src="${assets.client.js}" defer crossorigin></script>`
         }
       </head>
       <body>
@@ -60,10 +54,7 @@ router.get(
 // Intialize and configure Koa application
 const server = new Koa();
 server
-  // `koa-helmet` provides security headers to help prevent common, well known attacks
-  // @see https://helmetjs.github.io/
   .use(helmet())
-  // Serve static files located under `process.env.RAZZLE_PUBLIC_DIR`
   .use(serve(process.env.RAZZLE_PUBLIC_DIR))
   .use(router.routes())
   .use(router.allowedMethods());
