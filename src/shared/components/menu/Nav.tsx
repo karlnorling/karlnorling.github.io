@@ -3,7 +3,8 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Wrapper = styled.nav`
-  margin: 0 auto;
+  display: flex;
+  justify-content: center;
 `;
 const NavEl = styled.ul`
   list-style: none;
@@ -17,7 +18,7 @@ const NavItem = styled.li`
   margin: 10px 5px;
 `;
 const NavLink = styled(Link)`
-  box-shadow: 0 5px 10px 0 rgba(0, 0, 0, 0.3);
+  box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.27);
   background: #ffcc33;
   font-size: 20px;
   color: #333;
