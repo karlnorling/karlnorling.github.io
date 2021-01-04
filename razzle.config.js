@@ -6,7 +6,7 @@ module.exports = {
         useBabel: true,
         tsLoader: {
           transpileOnly: true,
-          experimentalWatchApi: true,
+          experimentalWatchApi: false,
         },
         forkTsChecker: {
           transpileOnly: true,

@@ -5,13 +5,11 @@ const Title = styled.h1`
   background: #ffcc33;
   box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.27);
   color: #333;
-  cursor: pointer;
-  display: block;
+  flex: 0 0 55px;
   font-size: 48px;
   font-weight: 200;
   padding: 20px 0 25px 0;
   text-align: center;
-  height: 55px;
   margin: 0;
 `;
 

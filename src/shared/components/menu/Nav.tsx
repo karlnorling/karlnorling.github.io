@@ -3,19 +3,20 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Wrapper = styled.nav`
-  display: flex;
-  justify-content: center;
+  width: 820px;
+  margin: 20px auto 0 auto;
 `;
 const NavEl = styled.ul`
   list-style: none;
   margin: 0;
   padding: 0;
   display: flex;
+  justify-content: space-between;
+  width: 100%;
 `;
 const NavItem = styled.li`
   text-align: center;
-  justify-content: center;
-  margin: 10px 5px;
+  width: 190px;
 `;
 const NavLink = styled(Link)`
   box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.27);
