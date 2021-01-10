@@ -6,7 +6,6 @@ import serve from 'koa-static';
 import helmet from 'koa-helmet';
 import Router from 'koa-router';
 import { renderToString } from 'react-dom/server';
-const { v4: uuid } = require('uuid');
 const assets = require(process.env.RAZZLE_ASSETS_MANIFEST);
 const router = new Router();
 
@@ -23,7 +22,6 @@ router.get(
     return context.url ? ctx.redirect(context.url) : next();
   },
   ctx => {
-    const nonce = uuid();
     ctx.status = 200;
     ctx.set('Content-Security-Policy', `default-src * 'unsafe-inline' 'unsafe-eval'; script-src * 'unsafe-inline' 'unsafe-eval'; connect-src * 'unsafe-inline'; img-src * data: blob: 'unsafe-inline'; frame-src *; style-src * 'unsafe-inline';`);
     ctx.body = `
