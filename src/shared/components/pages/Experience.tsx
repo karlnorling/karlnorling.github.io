@@ -228,8 +228,17 @@ export const Experience = (props: RouteComponentProps) => {
   const timelineEntryEls = timeLineEntries.filter(entry => {
     const { from, to } = entry;
     const [fromMonth, fromYear] = from.split(' ');
-    const [toMonth, toYear] = to.split(' ');
-    //if yearParam 
+    const [toMonth, toYear] = to.split(' '); // Check toYear === present - set now.
+    const targetDate = new Date(`${yearParam}-${monthParam || 1}-1`);
+    //if yearParam
+    const fromDate = new Date(`${fromYear}-${fromMonth}-1`);
+    const toDate = new Date(`${toYear}-${toMonth}-30`);
+    if (fromDate.getTime() >= targetDate.getTime() && toDate.getTime() <= targetDate.getTime()) {
+      console.log('show entry');
+      console.log(fromDate.toString()); 
+      console.log(toDate.toString()); 
+      console.log(targetDate.toString()); 
+    }
     return entry;
   }).map((entry, i) => {
     const { company, role, location, from, to, accomplishments } = entry;
