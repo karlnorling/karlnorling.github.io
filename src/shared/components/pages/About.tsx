@@ -2,7 +2,7 @@ import React from 'react';
 import { Main } from '../layout/Main';
 import { Nav } from '../menu/Nav';
 import { Headline, Letter } from './Headline';
-import styled, { css, keyframes } from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
 const letters: Letter[] = 'About me'.split('').map(letter => ({
   letter,
@@ -79,7 +79,7 @@ export const About = () => (
     <Headline hasCursor={true} letters={letters} />
     <Nav />
     <Content>
-      <ProfileImage src="images/head.jpg" alt="Karl Norling Face" />
+      <ProfileImage src="/public/images/head.jpg" alt="Karl Norling Face" />
       <Text>
         Problem solver by nature, love iterating upon solutions to come up with the most efficient one, both in programming and organisational settings. Pragmatic when it comes to tooling and solutions.
       </Text>
