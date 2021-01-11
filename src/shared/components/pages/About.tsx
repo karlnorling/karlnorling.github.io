@@ -39,13 +39,15 @@ const Content = styled.article`
   margin: 20px auto 0 auto;
   padding: 20px;
   box-sizing: border-box;
+  display: flex;
+  align-items: center;
 `;
 
 const Text = styled.p`
   font-size: 20px;
   font-weight: 300;
   color: #333;
-  margin: 20px 0 0 0;
+  margin: 0 0 0 20px;
   line-height: 1.4;
 `;
 
