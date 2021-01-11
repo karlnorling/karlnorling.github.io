@@ -204,11 +204,14 @@ const months = [
 ];
 
 const getNavTimelineItems = () => {
-  const endYear = new Date().getFullYear();
+  const now = new Date();
+  const endYear = now.getFullYear();
+  const currentMonth = now.getMonth();
   const numOfYears = endYear - startYear;
   let years = [];
   for(let i = 0; i <= numOfYears; i++) {
-    years.push({ year: endYear - i, months });
+    const currentMonths = (i === 0) ? months.slice(0, currentMonth+1) : months;
+    years.push({ year: endYear - i, months: currentMonths });
   }
   return years;
 };
@@ -226,21 +229,22 @@ export const Experience = (props: RouteComponentProps) => {
   const monthParam = params.month;
 
   const timelineEntryEls = timeLineEntries.filter(entry => {
+    if (!yearParam && !monthParam) {
+      return entry;
+    }
+
     const { from, to } = entry;
+    const now = new Date();
     const [fromMonth, fromYear] = from.split(' ');
-    const [toMonth, toYear] = to.split(' '); // Check toYear === present - set now.
+    const [toMonth, toYear] = (to.toLowerCase() === 'present') ? [now.getMonth()+1, now.getFullYear()] : to.split(' ');
     const targetDate = new Date(`${yearParam}-${monthParam || 1}-1`);
-    //if yearParam
     const fromDate = new Date(`${fromYear}-${fromMonth}-1`);
     const toDate = new Date(`${toYear}-${toMonth}-30`);
-    if (fromDate.getTime() >= targetDate.getTime() && toDate.getTime() <= targetDate.getTime()) {
-      console.log('show entry');
-      console.log(fromDate.toString()); 
-      console.log(toDate.toString()); 
-      console.log(targetDate.toString()); 
+
+    if (fromDate.getTime() <= targetDate.getTime() && toDate.getTime() >= targetDate.getTime()) {
+      return entry;
     }
-    return entry;
-  }).map((entry, i) => {
+  }).filter(Boolean).map((entry, i) => {
     const { company, role, location, from, to, accomplishments } = entry;
 
     const accomplishmentEls = accomplishments.map((accomplishment, j) =>

@@ -13,44 +13,10 @@ const Content = styled.article`
   box-sizing: border-box;
 `;
 
-const letters: Letter[] = [{
-    letter: 'H',
-    delay: 120,
-  }, {
-    letter: 'i',
-    delay: 110,
-  }, {
-    letter: ',',
-    delay: 220
-  }, {
-    letter: ' ',
-    delay: 220
-  }, {
-    letter: 'I',
-    delay: 115
-  }, {
-    letter: '\'',
-    delay: 105
-  }, {
-    letter: 'm',
-    delay: 310
-  }, {
-    letter: ' ',
-    delay: 110
-  }, {
-    letter: 'K',
-    delay: 125
-  }, {
-    letter: 'a',
-    delay: 110
-  }, {
-    letter: 'r',
-    delay: 140
-  }, {
-    letter: 'l',
-    delay: 160
-  }];
-
+const letters: Letter[] ="Hi, I'm Karl".split('').map(letter => ({
+  letter,
+  delay: Math.round((Math.random()*250))
+}));
 
 export const Home = () => (
   <Main>

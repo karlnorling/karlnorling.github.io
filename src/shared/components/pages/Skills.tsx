@@ -46,10 +46,10 @@ interface Item {
 
 const languagesList: Item[] = [{
   name: 'Node',
-  years: 4
+  years: 5
 }, {
   name: 'JavaScript',
-  years: 4
+  years: 10
 }, {
   name: 'TypeScript',
   years: 4
@@ -70,7 +70,7 @@ const languagesList: Item[] = [{
   years: 3
 }, {
   name: 'Java',
-  years: 4
+  years: 3
 }, {
   name: 'Mongo',
   years: 3
@@ -96,6 +96,9 @@ const servicesList: Item[] = [{
   years: 2
 }, {
   name: 'Kibana',
+  years: 4
+}, {
+  name: 'Grafana',
   years: 4
 }, {
   name: 'Datadog',
@@ -135,10 +138,22 @@ const servicesList: Item[] = [{
   years: 3
 }];
 
+const sortFn = (a: Item, b: Item) => {
+  const nameA = a.name.toUpperCase();
+  const nameB = b.name.toUpperCase();
+  if (nameA < nameB) {
+    return -1;
+  }
+  if (nameA > nameB) {
+    return 1;
+  }
+  return 0;
+};
+
 export const Skills = () => {
-  const languages = languagesList.map(({name, years}) =>
+  const languages = languagesList.sort(sortFn).map(({name, years}) =>
     (<Skill key={name}>- {name} {years} years</Skill>));
-  const services = servicesList.map(({name, years}) =>
+  const services = servicesList.sort(sortFn).map(({name, years}) =>
     (<Skill key={name}>- {name} {years} years</Skill>));
   return (
     <Main>
