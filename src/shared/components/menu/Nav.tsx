@@ -1,6 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import styled from 'styled-components';
+import { NavLink } from 'react-router-dom';
+import styled, { css } from 'styled-components';
 
 const Wrapper = styled.nav`
   width: 820px;
@@ -18,7 +18,7 @@ const NavItem = styled.li`
   text-align: center;
   width: 190px;
 `;
-const NavLink = styled(Link)`
+const Link = styled(NavLink)`
   box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.27);
   background: #ffcc33;
   font-size: 20px;
@@ -38,13 +38,17 @@ const NavLink = styled(Link)`
   }
 `;
 
+const activeNav = {
+  background: '#ffb933'
+};
+
 export const Nav = () => (
 <Wrapper>
   <NavEl>
-    <NavItem><NavLink to="/">Intro</NavLink></NavItem>
-    <NavItem><NavLink to="/about">About me</NavLink></NavItem>
-    <NavItem><NavLink to="/skills">Skills</NavLink></NavItem>
-    <NavItem><NavLink to="/experience">Experience</NavLink></NavItem>
+    <NavItem><Link to="/">Intro</Link></NavItem>
+    <NavItem><Link to="/about" activeStyle={activeNav}>About me</Link></NavItem>
+    <NavItem><Link to="/skills" activeStyle={activeNav}>Skills</Link></NavItem>
+    <NavItem><Link to="/experience" activeStyle={activeNav}>Experience</Link></NavItem>
   </NavEl>
 </Wrapper>
 );
